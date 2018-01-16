@@ -19,12 +19,8 @@ const io = require('socket.io-client')(SOCKET_URL,
 
 
 io.on('connect', function(){
-  console.log("Connected to socket.io server to monitor changes on:");
-  console.log(DIFF_URL);
-
-
-  hook.send('I am now alive!');
-
+  console.log(`Connected to diff-socket server to monitor changes on ${DIFF_URL}`);
+  hook.send(`I am now alive and monitoring changes on ${DIFF_URL}`);
 });
 
 io.on('change', function(data){
@@ -32,5 +28,6 @@ io.on('change', function(data){
 });
 
 io.on('disconnect', function(){
+  hook.send("I have lost connection to diff-socket server.");
   console.log("Disconnected.");
 });
